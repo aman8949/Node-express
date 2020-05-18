@@ -5,7 +5,7 @@ const dishRouter=express.Router();
 
 dishRouter.use(bodyParser.json());
 
-dishRouter.route('/')
+dishRouter.route('/:dishId')
 .all((req,res,next)=>{
 
     res.statusCode=200;
@@ -13,17 +13,18 @@ dishRouter.route('/')
     next();
 })
 .get((req,res,next)=>{
-    res.end('Will send the dishes to you!!');
+    res.end('Will send the dish deatils with dishId: '+ req.params.dishId +' to you!!');
 })
 .post((req,res,next)=>{
-    res.end('Will add the dish '+ req.body.name + ' with description '+ req.body.description);
+    res.statusCode=403;
+    res.end('POST Operation not supported on dish with dishId:'+ req.params.dishId );
 })
 .put((req,res,next)=>{
-    res.statusCode=403;
-    res.end('PUT operation not supported');
+    res.end('Updating the dish with dishId: '+ req.params.dishId);
 })
 .delete((req,res,next)=>{
-    res.end('Will delete all the dishes!! ');
+    res.end('Will delete the dish with dishId:'+  req.params.dishId);
 });
 
  module.exports=dishRouter;
+ 
